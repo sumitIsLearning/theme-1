@@ -1,4 +1,15 @@
-<div class="homepage">
-  <h1>Welcome to Shopify Theme Development</h1>
-  <p>{% render 'homepage-text' %}</p>
-</div>
+<!-- templates/homepage.liquid -->
+{% layout 'default' %}
+
+<!-- Hero Section -->
+<section class="relative bg-cover bg-center h-screen" style="background-image: url('{{ 'shopping-image.jpg' | asset_url }}');">
+  <div class="absolute inset-0 bg-black opacity-50"></div> <!-- Overlay for text contrast -->
+  
+  <div class="container mx-auto px-6 flex items-center justify-center h-full">
+    <div class="text-center text-white z-10">
+      <h1 class="text-5xl font-bold leading-tight mb-4">Welcome to Our Store</h1>
+      <p class="text-xl mb-6">Find the best products at the best prices.</p>
+      <a href="/collections/all" class="inline-block bg-blue-600 text-white py-3 px-6 rounded-full text-lg hover:bg-blue-700 transition duration-300">Shop Now</a>
+    </div>
+  </div>
+</section>

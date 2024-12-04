@@ -1,18 +1,36 @@
-{% paginate collection.products by 2 %}
-  <h1>{{ collection.title }}</h1>
-  {% for product in collection.products %}
-    <div>
-      <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
-      {{ product.price | money }}
-      {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
-      <a href="{{ product.url | within: collection }}">
-        <img src="{{ product.featured_image.src | image_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}" width="{{product.featured_image.width}}" height="{{product.featured_image.height}}">
-      </a>
+<!-- templates/collection.liquid -->
+{% layout 'default' %}
+
+{% paginate collection.products by 8 %}
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-4xl font-semibold text-center mb-8">{{ collection.title }}</h1>
+        <!-- Collection Title -->
+    <!-- Product Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      {% for product in collection.products %}
+      <div class="bg-white border border-gray-200 shadow-lg rounded-lg overflow-hidden">
+        <img class="w-full h-48 object-cover" src="{{ product.featured_image.src | image_url}}" alt="{{ product.title }}" width="" height="">
+        <div class="p-4">
+          <h2 class="text-xl font-bold text-gray-800">{{ product.title }}</h2>
+          <p class="text-gray-600 mt-2">{{ product.description | truncatewords: 15 }}</p>
+          <span class="text-lg font-semibold text-gray-800">{{ product.price | money }}</span>
+          <a href="{{ product.url }}" class="text-blue-500 hover:underline mt-4 block">View Product</a>
+        </div>
+      </div>
+      {% endfor %}
     </div>
-  {% else %}
-    <p>no matches</p>
-  {% endfor %}
-  {% if paginate.pages > 1 %}
-    {{ paginate | default_pagination }}
-  {% endif %}
+  
+
+
+  <!-- Pagination -->
+    <div class="mt-8 text-center">
+      <div class="inline-block">
+        <a href="{{ paginate.previous.url}}" class="px-4 py-2 bg-blue-500 text-white rounded-l-lg hover:bg-blue-600">Previous</a>
+
+        <a href="{{ paginate.next.url }}" class="px-4 py-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600">Next</a>
+      </div>
+    </div>
+  </div>
 {% endpaginate %}
+
+
