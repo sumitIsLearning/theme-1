@@ -1,9 +1,13 @@
+
+<!-- variables -->
+ {% assign menu = section.settings.menu.links %}
+ 
 <div class="relative bg-white" x-data="{mobileOpen: false}">
   <div class="mx-auto px-4 sm:px-6">
     <div class="flex justify-between items-center py-6 md:justify-start md:space-x-10">
       <!-- STORE NAME / STORE LOGO -->
       <div class="flex justify-start lg:flex-1 truncate">
-        <h1 class="text-xl font-bold truncate">{{ shop.name }}</h1>
+        <h1 class="text-xl font-bold truncate">{{ section.settings.name_of_shop  }}</h1>
       </div>
 
       <!-- HAMBURGER MENU for Mobile screen -->
@@ -19,7 +23,7 @@
 
       <!-- DESKTOP NAVIGATION MENU -->
       <nav x-data="{open: false}" class="hidden md:flex space-x-10">
-        {% for link in linklists['main-menu'].links %}
+        {% for link in menu %}
           {% if link.links.size > 0 %}
             <!-- This is the dropdown menu button -->
             <div class="relative">
@@ -79,7 +83,7 @@
         <!-- MOBILE MENU HEADER TITLE PLUS CLOSE BUTTON -->
         <div class="flex items-center justify-between pb-3">
           <div>
-            <h1 class="text-lg text-gray-500">{{ shop.name }}</h1>
+            <h1 class="text-lg text-gray-500">{{ section.settings.name_of_shop }}</h1>
           </div>
           <div class="-mr-2">
             <button @click="mobileOpen = false" type="button" class="bg-white rounded-md p-2 text-gray-500">
@@ -93,7 +97,7 @@
         <!-- NAVIGATION LINKS FOR MOBILE MENU -->
         <div class="pt-3">
           <nav x-data="{mobileDropdownOpen: false}" class="grid gap-y-7">
-            {% for link in linklists['main-menu'].links %}
+            {% for link in menu %}
               {% if link.links.size > 0 %}
                 <div class="relative">
                   <button
@@ -132,3 +136,25 @@
     </div>
   </div>
 </div>
+
+{% schema  %} 
+  {
+    "name": "Navigational Bar",
+    "settings": [
+      {
+        "type": "text",
+        "id":"name_of_shop",
+        "label": "Title",
+        "default":"Quickstart",
+        "info": "This is the name of the store that will show in navbar"
+      },
+      {
+        "type": "link_list",
+        "id": "menu",
+        "label": "nav menu",
+        "default":"main-menu",
+        "info": "choose a menu you want to show in the nav bar"
+      }
+    ]
+  }
+{% endschema %}
