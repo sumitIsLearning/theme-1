@@ -65,10 +65,10 @@
       </nav>
 
       <div class="hidden md:flex items-center justify-end md:flex-1 space-x-5">
-        <a href="/cart" class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900">
+        <a href="{{routes.cart_url}}" class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900">
           <span>{% render 'icon-cart' %}</span>
         </a>
-        {% if customer %}
+        {% if customer.has_account and shop.customer_accounts_enabled%}
           <a href="{{routes.account_url}}" class="text-base text-gray-500 hover:text-gray-900"> {% render 'icon-my-account' %} </a>
         {% else %}
           <a href="{{routes.account_login_url}}" class="text-base text-gray-500 hover:text-gray-900">login</a>
